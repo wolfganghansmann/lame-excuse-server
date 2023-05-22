@@ -26,7 +26,7 @@ async def root(output="json"):
       <b>{excuse}</b>
     </p>
     <p>
-    Excuse happily served by pod {hostname}.
+    Excuse happily served by pod <code>{hostname}</code>.
     </p>
   </body>
 </html>

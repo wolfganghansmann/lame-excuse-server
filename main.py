@@ -1,7 +1,8 @@
 # main.py
 
-from fastapi import FastAPI, Response
 import random
+import os
+from fastapi import FastAPI, Response
 
 app = FastAPI()
 
@@ -10,9 +11,12 @@ with open("excuses.txt") as fh:
 
 @app.get("/")
 async def root(output="json"):
+
     excuse = excuses[random.randint(0, len(excuses) - 1)]
+    hostname = os.getenv("HOSTNAME")
+
     if output == "json":
-        return {"excuse": excuse}
+        return {"excuse": excuse, "served_by": hostname}
     else:
     	return Response(content=f"""
 <html>
@@ -20,6 +24,9 @@ async def root(output="json"):
   <h1>Excuse of the day:</h1>
     <p>
       <b>{excuse}</b>
+    </p>
+    <p>
+    Excuse happily served by pod {hostname}.
     </p>
   </body>
 </html>

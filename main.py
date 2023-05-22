@@ -10,4 +10,4 @@ with open("excuses.txt") as fh:
 
 @app.get("/")
 async def root():
-    return {"excuse": excuses[random.randint(0, len(excuses))]}
+    return {"excuse": excuses[random.randint(0, len(excuses) - 1)]}

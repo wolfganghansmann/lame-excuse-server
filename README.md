@@ -71,7 +71,8 @@ kubectl get pods
 # Step 3.2 (Optional): Perform a rolling update of image in pods
 
 ```
-# 
+# Modify main.py first.
+# Then rebuild the container image and give it a different version (e.g. v2)
 gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server:v2
 
 kubectl set image deployments/lame-excuse-server lame-excuse-server=gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server:v2

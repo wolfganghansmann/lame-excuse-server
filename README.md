@@ -49,24 +49,31 @@ gcloud container clusters get-credentials autopilot-cluster-1 --region europe-we
 # Make sure everything runs without any error messages
 kubectl version
 kubectl get nodes
+> NAME                                                 STATUS   ROLES    AGE     VERSION
+> gk3-autopilot-cluster-1-default-pool-51e1048c-wp0g   Ready    <none>   6m21s   v1.25.8-gke.500
+> gk3-autopilot-cluster-1-pool-1-a239f898-82ds         Ready    <none>   3m28s   v1.25.8-gke.500
 
 # Create deployment with a single pod
 kubectl create deployment lame-excuse-server --image=gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server
+> deployment.apps/lame-excuse-server created
 
 # Repeat until the pod is running
 kubectl get pods
+> NAME                                 READY   STATUS    RESTARTS   AGE
+> lame-excuse-server-9df795c6f-9zl9t   1/1     Running   0          63s
 
 # Create service
 kubectl expose deployment lame-excuse-server --port 80 --target-port 8000 --type LoadBalancer
+> service/lame-excuse-server exposed
 
 # Retrieve external IP address of the service and test service in a web browser
 kubectl get service
-> NAME                 TYPE           CLUSTER-IP   EXTERNAL-IP      PORT(S)        AGE
-> kubernetes           ClusterIP      10.22.0.1    <none>           443/TCP        7m11s
-> lame-excuse-server   LoadBalancer   10.22.2.22   34.159.128.224   80:31320/TCP   44s
+> NAME                 TYPE           CLUSTER-IP    EXTERNAL-IP      PORT(S)        AGE
+> kubernetes           ClusterIP      10.22.0.1     <none>           443/TCP        12m
+> lame-excuse-server   LoadBalancer   10.22.0.164   35.198.131.223   80:30610/TCP   41s
 
-curl http://34.159.128.224
-> {"excuse":"Recursivity.  Call back if it happens again.", ...}
+curl http://35.198.131.223
+> {"excuse":"Recursivity.  Call back if it happens again.", "served_by":"lame-excuse-server-9df795c6f-9zl9t"}}
 ```
 
 ## Step 3.1 (Optional): Scale the deployment up and down
@@ -74,8 +81,13 @@ curl http://34.159.128.224
 ```
 # Let application run in three pods
 kubectl scale deployment lame-excuse-server --replicas 3
+> deployment.apps/lame-excuse-server scaled
 
 kubectl get pods
+> NAME                                 READY   STATUS    RESTARTS   AGE
+> lame-excuse-server-9df795c6f-9zl9t   1/1     Running   0          7m9s
+> lame-excuse-server-9df795c6f-qtnv6   1/1     Running   0          2m44s
+> lame-excuse-server-9df795c6f-txx6l   1/1     Running   0          2m44s
 ```
 
 ## Step 3.2 (Optional): Perform a rolling update of image in pods
@@ -89,6 +101,10 @@ gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server:v2
 kubectl set image deployments/lame-excuse-server lame-excuse-server=gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server:v2
 
 kubectl get pods
+> NAME                                  READY   STATUS    RESTARTS   AGE
+> lame-excuse-server-78b7746f55-5mq96   1/1     Running   0          71s
+> lame-excuse-server-78b7746f55-tgfz6   1/1     Running   0          80s
+> lame-excuse-server-78b7746f55-wrs9c   1/1     Running   0          77s
 ```
 
 ## Step 4: Remove lame-excuse-server container images in artifactory 

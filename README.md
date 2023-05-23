@@ -1,6 +1,8 @@
 # Lame Excuse Server
 
-The Lame Excuse Server is a demo application to show how to build a containerized Python application and how to run this application using the Google Kubernetes Engine (GKE). The server produces a random lame excuse in the Bastard Operator From Hell (BOFH) style (cf. https://bofh.d00t.org/).
+The Lame Excuse Server is a demo application to show how to build a containerized Python application and how to run this application using the Google Kubernetes Engine (GKE). 
+
+The server produces a random lame excuse in the Bastard Operator From Hell (BOFH) style (cf. https://bofh.d00t.org/).
 
 ## Step 1: Create a Kubernetes cluster
 
@@ -24,7 +26,7 @@ git clone https://github.com/wolfganghansmann/lame-excuse-server.git
 
 cd lame-excuse-server
 
-# Create a Container image and store it in the Container Registry
+# Create a container image and store it in the Google Container Registry
 gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server
 ```
 
@@ -41,7 +43,7 @@ curl localhost:8000
 ## Step 3: Run the container image in Kubernetes
 
 ```
-# Configure credentials for kebectl
+# Configure credentials for kubectl
 gcloud container clusters get-credentials autopilot-cluster-1 --region europe-west3 --project $GOOGLE_CLOUD_PROJECT
 
 # Make sure everything runs without any error messages
@@ -63,6 +65,8 @@ kubectl get service
 > kubernetes           ClusterIP      10.22.0.1    <none>           443/TCP        7m11s
 > lame-excuse-server   LoadBalancer   10.22.2.22   34.159.128.224   80:31320/TCP   44s
 
+curl http://34.159.128.224
+> {"excuse":"Recursivity.  Call back if it happens again.", ...}
 ```
 
 ## Step 3.1 (Optional): Scale the deployment up and down

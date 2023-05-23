@@ -20,13 +20,13 @@ This may take several minutes to complete.
 
 Activate the Google Cloud Shell and enter the following commands:
 
-Fetch the repository from GitHub
+Fetch the repository from GitHub:
 ```
 git clone https://github.com/wolfganghansmann/lame-excuse-server.git
 cd lame-excuse-server
 ```
 
-Create a container image and store it in the Google Container Registry
+Create a container image and store it in the Google Container Registry:
 ```
 gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server
 ```
@@ -54,6 +54,8 @@ gcloud container clusters get-credentials autopilot-cluster-1 --region europe-we
 Make sure everything runs without any error messages:
 ```
 kubectl version
+> [...]
+
 kubectl get nodes
 > NAME                                                 STATUS   ROLES    AGE     VERSION
 > gk3-autopilot-cluster-1-default-pool-51e1048c-wp0g   Ready    <none>   6m21s   v1.25.8-gke.500

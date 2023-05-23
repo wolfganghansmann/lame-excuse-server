@@ -1,6 +1,6 @@
 # Lame Excuse Server
 
-Lame Excuse Server is a demo application to show how to build a containerized Python application and how to run this application using the Google Kubernetes Engine (GKE).
+The Lame Excuse Server is a demo application to show how to build a containerized Python application and how to run this application using the Google Kubernetes Engine (GKE). The server produces a random lame excuse in the Bastard Operator From Hell (BOFH) style (cf. https://bofh.d00t.org/).
 
 ## Step 1: Create a Kubernetes cluster
 

@@ -1,4 +1,4 @@
-# lame-excuse-server
+# Lame Excuse Server
 
 Lame Excuse Server is a demo application to show how to build a containerized Python application and how to run this application using the Google Kubernetes Engine (GKE).
 

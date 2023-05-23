@@ -1,5 +1,3 @@
-# main.py
-
 import random
 import os
 from fastapi import FastAPI, Response

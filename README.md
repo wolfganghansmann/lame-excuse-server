@@ -74,7 +74,7 @@ kubectl scale deployment lame-excuse-server --replicas 3
 kubectl get pods
 ```
 
-# Step 3.2 (Optional): Perform a rolling update of image in pods
+## Step 3.2 (Optional): Perform a rolling update of image in pods
 
 ```
 # Modify main.py first.

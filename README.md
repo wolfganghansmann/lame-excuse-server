@@ -4,12 +4,19 @@ Lame Excuse Server is a demo application to show how to build a containerized Py
 
 ## Step 1: Create a Kubernetes cluster
 
-Log into Google Cloud Console.
+Log into the Google Cloud Console (https://cloud.google.com)
+
+Once logged in, create a Kubernetes cluster:
 - From menu select "Kubernetes Engine -> Clusters -> Create"
-- Select name "autopilot-cluster-1"
-- Select Region "europe-west3"
+- Select name (or leave default "autopilot-cluster-1")
+- Select region (e.g. "europe-west3")
+- Finally, select "CREATE"
+
+This may take several minutes to complete.
 
 ## Step 2: Build the lame-excuse-server container image
+
+Activate the Google Cloud Shell and enter the following commands:
 
 ```
 git clone https://github.com/wolfganghansmann/lame-excuse-server.git
@@ -19,7 +26,7 @@ cd lame-excuse-server
 gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server
 ```
 
-## Step 2.1 (Optional) test the container in the Google Cloud Console
+## Step 2.1 (Optional): Test the container in the Google Cloud Console
 
 ```
 docker run -d -p 8000:8000 gcr.io/$GOOGLE_CLOUD_PROJECT/lame-excuse-server
